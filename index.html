@@ -31,7 +31,7 @@ function changeLedColor(hex) {
 	console.log("No credentials set light bar!");
 	$.ajax({
 		method: "POST",
-		url: "/v2/hardware/light",		
+		url: "http://localhost:8080/v2/hardware/light",		
 		data: {
 			id: 0,
 			name: 'frame',
