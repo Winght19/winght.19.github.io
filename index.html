@@ -1,0 +1,57 @@
+<html>
+<head>
+<title></title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+window.onload = function() {
+
+	var btns = document.getElementsByTagName('input');
+    for (var i=btns.length-1; 0<=i; i--) {
+        var btn = btns[i];
+        if (!btn.hasAttribute('hex')) {
+            continue;
+        }
+
+        var hex = btn.getAttribute('hex');
+        (function(btn, hex) {
+            btn.onclick = function() {
+                changeLedColor(hex);
+            };
+        }) (btn, hex);
+    }
+};
+
+function log(message) {
+        $("body").append($("<pre></pre>").text(message));
+}
+
+function changeLedColor(hex) {
+	
+	console.log("No credentials set light bar!");
+	$.ajax({
+		method: "POST",
+		url: "/v2/hardware/light",		
+		data: {
+			id: 0,
+			name: 'frame',
+			brightness: 1.0,
+			color: hex
+		},
+		dataType: "json"
+	}).fail(function () {
+		console.log("No credentials set light bar fail!");
+	}).done(function () {
+		console.log("No credentials set light bar pass!");
+   });
+}
+
+</script>
+</head>
+<body>
+    <input type='button' hex='#ff0000' value='red' />
+    <input type='button' hex='#00ff00' value='green' />
+    <input type='button' hex='#0000ff' value='blue' />
+    <input type='button' hex='#000000' value='off' />
+</body>
+</html>
